@@ -3,8 +3,11 @@ import { Category, Product } from "../types/product";
 import { LoginResponse, UserProfile } from "@/types/auth";
 import { storage } from "@/services/storage";
 
+const STORE_API = "https://api.escuelajs.co/api/v1";
+const JSON_API = "https://jsonplaceholder.typicode.com";
+
 const api = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+    baseURL: STORE_API,
 });
 
 // Products
@@ -13,6 +16,18 @@ export const fetchProducts = async (): Promise<Product[]> => {
     const { data } = await api.get("/products");
     return data;
 };
+
+// export const fetchProducts = async (): Promise<{
+//     items: Product[];
+//     generatedAt: string;
+// }> => {
+//     const res = await fetch(`${STORE_API}/products`, { cache: "force-cache" });
+
+//     if (!res.ok) throw new Error("Failed to fetch products");
+
+//     const data = await res.json();
+//     return { items: data, generatedAt: new Date().toLocaleString() };
+// };
 
 export const fetchProductById = async (id: number): Promise<Product> => {
     const { data } = await api.get(`/products/${id}`);
@@ -25,6 +40,17 @@ export const fetchCategories = async (): Promise<Category[]> => {
     const { data } = await api.get("/categories");
     return data;
 };
+
+// export const fetchCategories = async (): Promise<{
+//     items: Category[];
+//     generatedAt: string;
+// }> => {
+//     const res = await fetch(`${STORE_API}/categories`);
+//     if (!res.ok) throw new Error("Failed to fetch categories");
+
+//     const data = await res.json();
+//     return { items: data, generatedAt: new Date().toLocaleString() };
+// };
 
 export const fetchCategoryById = async (id: number): Promise<Category> => {
     const { data } = await api.get(`/categories/${id}`);
@@ -46,4 +72,17 @@ export const fetchUserProfile = async (): Promise<UserProfile> => {
         },
     });
     return data;
+};
+
+// FAQ
+
+export const fetchFaqs = async () => {
+    const res = await fetch(`${JSON_API}/posts?_limit=10`, {
+        cache: "force-cache",
+    });
+
+    if (!res.ok) throw new Error("Failed to fetch FAQs");
+    const data = await res.json();
+
+    return { items: data, generatedAt: new Date().toLocaleString() };
 };

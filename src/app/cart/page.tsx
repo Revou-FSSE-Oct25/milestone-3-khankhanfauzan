@@ -2,7 +2,7 @@
 
 import CartCard from "@/components/CartCard";
 import { useState } from "react";
-import useCart from "../hooks/useCart";
+import useCart from "../../hooks/useCart";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {

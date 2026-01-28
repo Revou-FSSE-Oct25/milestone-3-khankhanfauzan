@@ -1,6 +1,6 @@
 "use client";
 
-import useCart from "@/app/hooks/useCart";
+import useCart from "@/hooks/useCart";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { fetchProductById } from "@/services/api";

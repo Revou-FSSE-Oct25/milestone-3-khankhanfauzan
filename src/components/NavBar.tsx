@@ -1,6 +1,6 @@
 "use client";
 
-import useCart from "@/app/hooks/useCart";
+import useCart from "@/hooks/useCart";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "./ui/button";
@@ -77,6 +77,12 @@ function NavBar() {
                             className={`text-md transition-colors ${isActive("/products")}`}
                         >
                             All Products
+                        </Link>
+                        <Link
+                            href="/faq"
+                            className={`text-md transition-colors ${isActive("/faq")}`}
+                        >
+                            FAQ
                         </Link>
                     </div>
 

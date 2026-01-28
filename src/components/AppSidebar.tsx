@@ -14,7 +14,13 @@ import {
     SidebarSeparator,
     useSidebar,
 } from "./ui/sidebar";
-import { Home, LayoutDashboard, LogOut, Package } from "lucide-react";
+import {
+    CircleQuestionMark,
+    Home,
+    LayoutDashboard,
+    LogOut,
+    Package,
+} from "lucide-react";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { storage } from "@/services/storage";
@@ -30,6 +36,11 @@ const items = [
         title: "All Products",
         url: "/products",
         icon: Package,
+    },
+    {
+        title: "FAQ",
+        url: "/faq",
+        icon: CircleQuestionMark,
     },
 ];
 
