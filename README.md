@@ -23,6 +23,10 @@ RevoShop is a simple e‑commerce demo built with Next.js App Router. It showcas
 - Axios and Fetch API for data fetching
 - LocalStorage utilities for cart/auth persistence
 
+## Deployed Website
+
+[Link](https://milestone-3-khankhanfauzan.vercel.app/)
+
 ## Folder Structure
 
 ```
