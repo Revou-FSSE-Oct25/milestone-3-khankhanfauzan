@@ -11,7 +11,7 @@ function page() {
     const [loading, setLoading] = useState(true);
 
     const [products, setProducts] = useState<Product[]>([]);
-    const [categories, setCategories] = useState<Category[]>([]);
+    // const [categories, setCategories] = useState<Category[]>([]);
 
     useEffect(() => {
         fetchProducts()
@@ -19,10 +19,10 @@ function page() {
             .catch(console.error)
             .finally(() => setLoading(false));
 
-        fetchCategories()
-            .then(setCategories)
-            .catch(console.error)
-            .finally(() => setLoading(false));
+        // fetchCategories()
+        //     .then(setCategories)
+        //     .catch(console.error)
+        //     .finally(() => setLoading(false));
     }, []);
 
     if (loading) return <Loading />;
@@ -37,14 +37,14 @@ function page() {
                     ))}
                 </div>
             </div>
-            <div>
+            {/* <div>
                 <h1 className="text-4xl mb-8">Categories</h1>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                     {categories.map((category) => (
                         <CategoryCard key={category.id} category={category} />
                     ))}
                 </div>
-            </div>
+            </div> */}
         </main>
     );
 }
