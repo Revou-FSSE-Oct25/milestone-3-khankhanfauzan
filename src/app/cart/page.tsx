@@ -63,7 +63,7 @@ function page() {
                     ))}
                 </div>
                 <div className="col-span-4 rounded-lg flex flex-col p-4 bg-neutral-800 h-full max-h-80">
-                    <h3 className="text-2xl font-semibold">Summary</h3>
+                    <h3 className="text-xl font-semibold">Summary</h3>
                     <div className="flex flex-col gap-2 mt-2">
                         <div className="flex justify-between text-neutral-400">
                             <p className="">Sub Total</p>
@@ -76,8 +76,8 @@ function page() {
                     </div>
                     <div className="border-t border-neutral-600 flex flex-col gap-4 pt-2 mt-2">
                         <div className="flex justify-between">
-                            <p className="text-2xl font-bold">Total Price</p>
-                            <p className="text-2xl font-bold">{`$${total}`}</p>
+                            <p className="text-lg font-bold">Total Price</p>
+                            <p className="text-lg font-bold">{`$${total}`}</p>
                         </div>
                         <Button>Checkout</Button>
                     </div>
