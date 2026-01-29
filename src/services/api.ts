@@ -29,9 +29,27 @@ export const fetchProducts = async (): Promise<Product[]> => {
 //     return { items: data, generatedAt: new Date().toLocaleString() };
 // };
 
+// export const fetchProducts = async (): Promise<Product[]> => {
+//     const res = await fetch(`${STORE_API}/products`, { cache: "no-store" });
+
+//     if (!res.ok) throw new Error("Failed to fetch products.");
+
+//     return res.json();
+// };
+
+// export const fetchProductById = async (id: number): Promise<Product> => {
+//     const { data } = await api.get(`/products/${id}`);
+//     return data;
+// };
+
 export const fetchProductById = async (id: number): Promise<Product> => {
-    const { data } = await api.get(`/products/${id}`);
-    return data;
+    const res = await fetch(`${STORE_API}/products/${id}`, {
+        cache: "no-store",
+    });
+
+    if (!res.ok) throw new Error("Product not found");
+
+    return res.json();
 };
 
 // Categories
@@ -40,6 +58,14 @@ export const fetchCategories = async (): Promise<Category[]> => {
     const { data } = await api.get("/categories");
     return data;
 };
+
+// export const fetchCategories = async (): Promise<Category[]> => {
+//     const res = await fetch(`${STORE_API}/categories`, { cache: "no-store" });
+
+//     if (!res.ok) throw new Error("Failed to fetch categories.");
+
+//     return res.json();
+// };
 
 // export const fetchCategories = async (): Promise<{
 //     items: Category[];
