@@ -39,7 +39,7 @@ async function page({ params }: Props) {
                             </p>
                         </div>
                         <div className="mt-6 space-y-6">
-                            <p className="text-base leading-relaxed text-neutral-300">
+                            <p className="text-base leading-relaxed text-neutral-400">
                                 {product.description}
                             </p>
                         </div>

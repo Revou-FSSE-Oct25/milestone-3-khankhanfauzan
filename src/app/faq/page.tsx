@@ -6,9 +6,11 @@ async function page() {
     const { items, generatedAt } = await fetchFaqs();
 
     return (
-        <div style={{ padding: "2rem" }}>
-            <h1>Frequently Asked Questions</h1>
-            <p style={{ color: "gray" }}>
+        <div className="p-10">
+            <h1 className="text-2xl font-semibold">
+                Frequently Asked Questions
+            </h1>
+            <p className="text-neutral-400">
                 Page generated at: <strong>{generatedAt}</strong>
             </p>
             <hr />

@@ -16,12 +16,14 @@ function FAQCard({ post }: FAQCardProps) {
             <Collapsible>
                 <CollapsibleTrigger className="w-full">
                     <div className="p-2 hover:bg-neutral-900 rounded-sm w-full flex justify-between items-center">
-                        <h3 className="text-start w-full">{post.title}</h3>
+                        <h3 className="text-start w-full font-semibold">
+                            {post.title}
+                        </h3>
                         <ChevronDownIcon />
                     </div>
                 </CollapsibleTrigger>
                 <CollapsibleContent className="mt-2 p-2 border-t">
-                    <p>{post.body}</p>
+                    <p className="text-neutral-400">{post.body}</p>
                 </CollapsibleContent>
             </Collapsible>
         </div>

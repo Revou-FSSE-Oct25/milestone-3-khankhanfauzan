@@ -65,11 +65,11 @@ function page() {
                 <div className="col-span-4 rounded-lg flex flex-col p-4 bg-neutral-800 h-full max-h-80">
                     <h3 className="text-2xl font-semibold">Summary</h3>
                     <div className="flex flex-col gap-2 mt-2">
-                        <div className="flex justify-between text-neutral-300">
+                        <div className="flex justify-between text-neutral-400">
                             <p className="">Sub Total</p>
                             <p>{`$${subTotal}`}</p>
                         </div>
-                        <div className="flex justify-between text-neutral-300">
+                        <div className="flex justify-between text-neutral-400">
                             <p>Tax {`(${taxPercentage}%)`}</p>
                             <p>{`$${subTax}`}</p>
                         </div>
