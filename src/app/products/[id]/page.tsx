@@ -17,35 +17,27 @@ async function page({ params }: Props) {
     return (
         <div className="min-h-screen py-12">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                {/* Back Button */}
                 <BackButton />
-
                 <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
-                    {/* Image */}
                     <ProductGallery
                         images={product.images}
                         title={product.title}
                     />
-
-                    {/* Product Description */}
                     <div className="flex flex-col justify-center items-start">
                         <nav className="mb-4">
                             <Badge variant="secondary">
                                 {product.category.name}
                             </Badge>
                         </nav>
-
                         <h1 className="text-4xl font-extrabold  sm:text-5xl">
                             {product.title}
                         </h1>
-
                         <div className="mt-6">
                             <h2 className="sr-only">Product information</h2>
                             <p className="text-3xl font-bold tracking-tight ">
                                 ${product.price}
                             </p>
                         </div>
-
                         <div className="mt-6 space-y-6">
                             <p className="text-base leading-relaxed text-neutral-300">
                                 {product.description}
