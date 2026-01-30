@@ -13,34 +13,10 @@ const api = axios.create({
 // Products
 
 export const fetchProducts = async (): Promise<Product[]> => {
-    const { data } = await api.get("/products");
-    return data;
+    const res = await fetch(`${STORE_API}/products`, { cache: "no-store" });
+    if (!res.ok) throw new Error("Failed to fetch products");
+    return res.json();
 };
-
-// export const fetchProducts = async (): Promise<{
-//     items: Product[];
-//     generatedAt: string;
-// }> => {
-//     const res = await fetch(`${STORE_API}/products`, { cache: "force-cache" });
-
-//     if (!res.ok) throw new Error("Failed to fetch products");
-
-//     const data = await res.json();
-//     return { items: data, generatedAt: new Date().toLocaleString() };
-// };
-
-// export const fetchProducts = async (): Promise<Product[]> => {
-//     const res = await fetch(`${STORE_API}/products`, { cache: "no-store" });
-
-//     if (!res.ok) throw new Error("Failed to fetch products.");
-
-//     return res.json();
-// };
-
-// export const fetchProductById = async (id: number): Promise<Product> => {
-//     const { data } = await api.get(`/products/${id}`);
-//     return data;
-// };
 
 export const fetchProductById = async (id: number): Promise<Product> => {
     const res = await fetch(`${STORE_API}/products/${id}`, {
@@ -64,31 +40,22 @@ export const fetchProductsByCategory = async (
     return res.json();
 };
 
+export const fetchProductByTitle = async (
+    title: string,
+): Promise<Product[]> => {
+    const res = await fetch(`${STORE_API}/products/?title=${title}`);
+
+    if (!res.ok) throw new Error("Failed to fetch products");
+    return res.json();
+};
+
 // Categories
 
 export const fetchCategories = async (): Promise<Category[]> => {
-    const { data } = await api.get("/categories");
-    return data;
+    const res = await fetch(`${STORE_API}/categories`, { cache: "no-store" });
+    if (!res.ok) throw new Error("Failed to fetch categories");
+    return res.json();
 };
-
-// export const fetchCategories = async (): Promise<Category[]> => {
-//     const res = await fetch(`${STORE_API}/categories`, { cache: "no-store" });
-
-//     if (!res.ok) throw new Error("Failed to fetch categories.");
-
-//     return res.json();
-// };
-
-// export const fetchCategories = async (): Promise<{
-//     items: Category[];
-//     generatedAt: string;
-// }> => {
-//     const res = await fetch(`${STORE_API}/categories`);
-//     if (!res.ok) throw new Error("Failed to fetch categories");
-
-//     const data = await res.json();
-//     return { items: data, generatedAt: new Date().toLocaleString() };
-// };
 
 export const fetchCategoryById = async (id: number): Promise<Category> => {
     const { data } = await api.get(`/categories/${id}`);

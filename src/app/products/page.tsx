@@ -11,12 +11,13 @@ function page() {
     const [loading, setLoading] = useState(true);
 
     const [products, setProducts] = useState<Product[]>([]);
+    const [error, setError] = useState<string | null>(null);
     // const [categories, setCategories] = useState<Category[]>([]);
 
     useEffect(() => {
         fetchProducts()
             .then(setProducts)
-            .catch(console.error)
+            .catch((e) => setError(e.message))
             .finally(() => setLoading(false));
 
         // fetchCategories()
@@ -29,6 +30,9 @@ function page() {
 
     return (
         <main className="max-w-7xl mx-auto px-6 py-12">
+            {error && (
+                <div className="mb-4 text-red-500">Error: {error}</div>
+            )}
             <div className="mb-8">
                 <h1 className="text-4xl mb-8">New Arrival</h1>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">

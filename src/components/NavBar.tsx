@@ -144,7 +144,10 @@ function NavBar() {
                                             <DropdownMenuItem
                                                 variant="destructive"
                                                 onClick={() => {
-                                                    storage.clearAll;
+                                                    storage.removeToken();
+                                                    storage.removeUser();
+                                                    setAuthToken(null);
+                                                    setUser(null);
                                                     router.push("/");
                                                 }}
                                             >

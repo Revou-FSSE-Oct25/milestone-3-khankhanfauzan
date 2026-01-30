@@ -129,7 +129,10 @@ function AppSidebar() {
                         <SidebarMenuButton
                             className="text-red-500"
                             onClick={() => {
-                                storage.clearAll();
+                                storage.removeToken();
+                                storage.removeUser();
+                                setAuthToken(null);
+                                setUser(null);
                                 toggleSidebar();
                             }}
                         >
