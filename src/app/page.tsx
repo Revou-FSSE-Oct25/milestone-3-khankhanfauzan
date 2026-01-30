@@ -45,11 +45,6 @@ export default function Home() {
                     Error: {error}
                 </div>
             )}
-
-            <div className="mx-lg w-full">
-                <Input placeholder="wadadaw" className="w-full" />
-            </div>
-
             <div className="w-full">
                 <div className="flex flex-row justify-between mb-2 w-full px-8">
                     <h1 className="text-2xl font-semibold ">New Arrival</h1>
