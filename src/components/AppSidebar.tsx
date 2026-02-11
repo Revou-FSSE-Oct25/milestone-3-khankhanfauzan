@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import {
     Sidebar,
     SidebarContent,
@@ -22,9 +21,12 @@ import {
     Package,
 } from "lucide-react";
 import Link from "next/link";
+import { logout } from "@/app/actions/auth";
+
+import { User } from "@/lib/definitions";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { storage } from "@/services/storage";
 import { Button } from "./ui/button";
+import { SessionPayload } from "@/lib/session";
 
 const items = [
     {
@@ -44,30 +46,13 @@ const items = [
     },
 ];
 
-function AppSidebar() {
-    const [authToken, setAuthToken] = useState<string | null>(null);
+type Props = {
+    session: SessionPayload | null;
+    user: User | null;
+};
 
-    const [user, setUser] = useState<{
-        name: string;
-        email?: string;
-        avatar?: string;
-        role?: string;
-    } | null>(null);
-
+function AppSidebar({ session, user }: Props) {
     const { toggleSidebar } = useSidebar();
-
-    useEffect(() => {
-        setAuthToken(storage.getToken());
-        setUser(storage.getUser());
-        const handler = () => {
-            setAuthToken(storage.getToken());
-            setUser(storage.getUser());
-        };
-        window.addEventListener("auth-updated", handler);
-        return () => {
-            window.removeEventListener("auth-updated", handler);
-        };
-    }, []);
 
     return (
         <Sidebar side="right">
@@ -75,7 +60,7 @@ function AppSidebar() {
                 <SidebarGroup>
                     <SidebarGroupLabel>Navigation</SidebarGroupLabel>
                     <SidebarHeader>
-                        {authToken ? (
+                        {user ? (
                             <SidebarMenu className="flex flex-row items-center gap-2">
                                 <Avatar>
                                     <AvatarImage
@@ -90,17 +75,12 @@ function AppSidebar() {
                             </SidebarMenu>
                         ) : (
                             <Link href="/login">
-                                <Button
-                                    onClick={toggleSidebar}
-                                    variant="secondary"
-                                >
-                                    Login
-                                </Button>
+                                <Button variant="secondary">Login</Button>
                             </Link>
                         )}
                     </SidebarHeader>
 
-                    {user?.role === "admin" && (
+                    {session?.role === "admin" && (
                         <SidebarMenuButton asChild>
                             <Link href="/dashboard">
                                 <LayoutDashboard />
@@ -125,20 +105,17 @@ function AppSidebar() {
                         </SidebarMenu>
                     </SidebarGroupContent>
                     <SidebarSeparator />
-                    {authToken && (
+                    {
                         <SidebarMenuButton
                             className="text-red-500"
-                            onClick={() => {
-                                storage.removeToken();
-                                storage.removeUser();
-                                setAuthToken(null);
-                                setUser(null);
+                            onClick={async () => {
+                                logout();
                                 toggleSidebar();
                             }}
                         >
                             <LogOut /> Logout
                         </SidebarMenuButton>
-                    )}
+                    }
                 </SidebarGroup>
             </SidebarContent>
         </Sidebar>

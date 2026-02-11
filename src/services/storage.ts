@@ -87,6 +87,7 @@ export const storage = {
         name: string;
         email?: string;
         avatarUrl?: string;
+        role?: string;
     } | null => {
         if (typeof window === "undefined") return null;
         const raw = localStorage.getItem(USER_KEY);

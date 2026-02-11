@@ -19,20 +19,20 @@ import {
     DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
 import { useSidebar } from "@/components/ui/sidebar";
+import { logout } from "@/app/actions/auth";
+import { User } from "@/lib/definitions";
+import { SessionPayload } from "@/lib/session";
 
-function NavBar() {
+type Props = {
+    session: SessionPayload | null;
+    user: User | null;
+};
+function NavBar({ session, user }: Props) {
     const router = useRouter();
 
     const { cart } = useCart();
 
     const pathName = usePathname();
-    const [authToken, setAuthToken] = useState<string | null>(null);
-    const [user, setUser] = useState<{
-        name: string;
-        email?: string;
-        avatar?: string;
-        role?: string;
-    } | null>(null);
 
     const { toggleSidebar } = useSidebar();
 
@@ -40,19 +40,6 @@ function NavBar() {
         pathName === path
             ? "text-blue-600 font-bold"
             : "text-white hover:text-blue-500 font-bold";
-
-    useEffect(() => {
-        setAuthToken(storage.getToken());
-        setUser(storage.getUser());
-        const handler = () => {
-            setAuthToken(storage.getToken());
-            setUser(storage.getUser());
-        };
-        window.addEventListener("auth-updated", handler);
-        return () => {
-            window.removeEventListener("auth-updated", handler);
-        };
-    }, []);
 
     return (
         <nav className="sticky top-0 z-50 w-full border-b border-neutral-800 bg-neutral-900 backdrop-blur-md">
@@ -114,7 +101,7 @@ function NavBar() {
                         </div>
 
                         <div className="hidden md:block">
-                            {authToken ? (
+                            {user ? (
                                 <DropdownMenu>
                                     <DropdownMenuTrigger>
                                         <Avatar size="lg">
@@ -143,12 +130,8 @@ function NavBar() {
                                         <DropdownMenuGroup>
                                             <DropdownMenuItem
                                                 variant="destructive"
-                                                onClick={() => {
-                                                    storage.removeToken();
-                                                    storage.removeUser();
-                                                    setAuthToken(null);
-                                                    setUser(null);
-                                                    router.push("/");
+                                                onClick={async () => {
+                                                    logout();
                                                 }}
                                             >
                                                 Log out

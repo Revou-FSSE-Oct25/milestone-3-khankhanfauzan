@@ -5,6 +5,8 @@ import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import AppSidebar from "@/components/AppSidebar";
+import AppSidebarWrapper from "@/components/AppSidebarWrapper";
+import NavBarWrapper from "@/components/NavBarWrapper";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -32,9 +34,9 @@ export default function RootLayout({
                 className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
             >
                 <SidebarProvider defaultOpen={false}>
-                    <AppSidebar />
+                    <AppSidebarWrapper />
                     <main className="w-full min-h-screen flex flex-col">
-                        <NavBar />
+                        <NavBarWrapper />
                         <div className="flex-1">{children}</div>
                         <Footer />
                     </main>

@@ -1,6 +1,4 @@
-import React from "react";
-
-function page() {
+async function page() {
     return (
         <div>
             <h1>Dashboard Page</h1>

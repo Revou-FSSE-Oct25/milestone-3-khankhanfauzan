@@ -1,56 +1,19 @@
 "use client";
 
-import React from "react";
+import { useActionState, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { fetchUserProfile, loginUser } from "@/services/api";
-import { storage } from "@/services/storage";
-import { useForm } from "react-hook-form";
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
-import { useRouter } from "next/navigation";
+import { login } from "@/app/actions/auth";
+import type { LoginFormState } from "@/lib/definitions";
+import { Eye, EyeOff } from "lucide-react";
 
-function page() {
-    const {
-        register,
-        handleSubmit,
-        formState: { errors, isSubmitting },
-    } = useForm();
-
-    const [errorOpen, setErrorOpen] = React.useState(false);
-    const [errorMessage, setErrorMessage] = React.useState("Login failed");
-    const router = useRouter();
-
-    const onSubmit = async (data: any) => {
-        try {
-            const result = await loginUser(data);
-            console.log("login result", result);
-            storage.setToken(result.access_token);
-
-            const user = await fetchUserProfile();
-
-            storage.setUser({
-                name: user.name,
-                email: user.email,
-                avatarUrl: user.avatar,
-                role: user.role,
-            });
-
-            router.push("/");
-        } catch (error: any) {
-            setErrorMessage(error.response?.data?.message || "Login failed");
-            setErrorOpen(true);
-        }
-    };
+function LoginPage() {
+    const [showPassword, setShowPassword] = useState(false);
+    const [state, action, pending] = useActionState<LoginFormState, FormData>(
+        login,
+        undefined,
+    );
 
     return (
         <div className="max-w-7xl mx-auto px-6 py-12 justify-center flex flex-col items-center">
@@ -64,84 +27,75 @@ function page() {
                     </p>
                 </div>
 
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form action={action}>
                     <FieldGroup>
                         <Field>
-                            <FieldLabel htmlFor="fieldgroup-email">
-                                Email
-                            </FieldLabel>
+                            <FieldLabel htmlFor="email">Email</FieldLabel>
                             <Input
-                                id="fieldgroup-email"
+                                id="email"
+                                name="email"
                                 type="email"
                                 placeholder="name@example.com"
+                                pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
+                                title="Please enter a valid email address."
                                 className={
-                                    errors.password ? "border-red-500" : ""
+                                    state?.errors?.email ? "border-red-500" : ""
                                 }
-                                {...register("email", {
-                                    required: "Email is required",
-                                    pattern: {
-                                        value: /\S+@\S+\.\S+/,
-                                        message: "Please enter a valid email",
-                                    },
-                                })}
+                                required
                             />
-                            {errors.email && (
+                            {state?.errors?.email && (
                                 <span className="text-red-500 text-xs mt-1">
-                                    {errors.email.message as string}
+                                    {state.errors.email}
                                 </span>
                             )}
                         </Field>
+
                         <Field>
-                            <FieldLabel htmlFor="fieldgroup-password">
-                                Password
-                            </FieldLabel>
-                            <Input
-                                id="fieldgroup-password"
-                                type="password"
-                                placeholder="******"
-                                className={
-                                    errors.password ? "border-red-500" : ""
-                                }
-                                {...register("password", {
-                                    required: "Password is required",
-                                    minLength: {
-                                        value: 4,
-                                        message: "Minimum 4 characters",
-                                    },
-                                })}
-                            />
-                            {errors.password && (
+                            <FieldLabel htmlFor="password">Password</FieldLabel>
+                            <div className="relative">
+                                <Input
+                                    id="password"
+                                    name="password"
+                                    type={showPassword ? "text" : "password"}
+                                    placeholder="******"
+                                    className={
+                                        state?.errors?.password
+                                            ? "border-red-500 pr-12"
+                                            : "pr-12"
+                                    }
+                                    required
+                                />
+                                <button
+                                    type="button"
+                                    className="absolute inset-y-0 right-3 text-xs text-neutral-400 hover:text-neutral-200"
+                                    onClick={() =>
+                                        setShowPassword((prev) => !prev)
+                                    }
+                                >
+                                    {showPassword ? <EyeOff /> : <Eye />}
+                                </button>
+                            </div>
+                            {state?.errors?.password && (
                                 <span className="text-red-500 text-xs mt-1">
-                                    {errors.password.message as string}
+                                    {state.errors.password}
                                 </span>
                             )}
                         </Field>
-                        <Button type="submit" disabled={isSubmitting}>
-                            {isSubmitting ? "Signing in..." : "Login"}
+
+                        {state?.message && (
+                            <p className="text-red-500 text-sm">
+                                {state.message}
+                            </p>
+                        )}
+
+                        <Button type="submit" disabled={pending}>
+                            {pending ? "Signing in..." : "Login"}
                         </Button>
                     </FieldGroup>
                 </form>
             </div>
-            <AlertDialog open={errorOpen} onOpenChange={setErrorOpen}>
-                <AlertDialogContent size="sm">
-                    <AlertDialogHeader>
-                        <AlertDialogTitle>Login failed</AlertDialogTitle>
-                        <AlertDialogDescription>
-                            {errorMessage}
-                        </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                        <AlertDialogCancel onClick={() => setErrorOpen(false)}>
-                            Close
-                        </AlertDialogCancel>
-                        <AlertDialogAction onClick={() => setErrorOpen(false)}>
-                            OK
-                        </AlertDialogAction>
-                    </AlertDialogFooter>
-                </AlertDialogContent>
-            </AlertDialog>
         </div>
     );
 }
 
-export default page;
+export default LoginPage;

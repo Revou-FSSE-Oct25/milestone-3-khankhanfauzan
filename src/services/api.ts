@@ -6,7 +6,7 @@ import { storage } from "@/services/storage";
 const STORE_API = "https://api.escuelajs.co/api/v1";
 const JSON_API = "https://jsonplaceholder.typicode.com";
 
-const api = axios.create({
+export const api = axios.create({
     baseURL: STORE_API,
 });
 
