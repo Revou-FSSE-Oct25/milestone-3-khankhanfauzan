@@ -14,8 +14,18 @@ export const api = axios.create({
 
 // Products
 
+// SSR
+// export const fetchProducts = async (): Promise<Product[]> => {
+//     const res = await fetch(`${STORE_API}/products`, { cache: "no-store" });
+//     if (!res.ok) throw new Error("Failed to fetch products");
+//     return res.json();
+// };
+
+// ISR - revalidate 1 minute
 export const fetchProducts = async (): Promise<Product[]> => {
-    const res = await fetch(`${STORE_API}/products`, { cache: "no-store" });
+
+    console.log("[fetchProducts] called at", new Date().toISOString());
+    const res = await fetch(`${STORE_API}/products`, { next: { revalidate: 60 } });
     if (!res.ok) throw new Error("Failed to fetch products");
     return res.json();
 };
