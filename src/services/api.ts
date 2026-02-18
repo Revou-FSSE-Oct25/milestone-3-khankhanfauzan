@@ -1,34 +1,15 @@
-import axios from "axios";
 import { Category, Product, ProductPayload } from "../types/product";
-import { LoginResponse, UserProfile } from "@/types/auth";
-import { storage } from "@/services/storage";
 
 const STORE_API = "https://api.escuelajs.co/api/v1";
 const JSON_API = "https://jsonplaceholder.typicode.com";
 
-export const api = axios.create({
-    baseURL: STORE_API,
-});
-
-
-
 // Products
 
-// SSR
 export const fetchProducts = async (): Promise<Product[]> => {
     const res = await fetch(`${STORE_API}/products`, { cache: "no-store" });
     if (!res.ok) throw new Error("Failed to fetch products");
     return res.json();
 };
-
-// ISR - revalidate 1 minute
-// export const fetchProducts = async (): Promise<Product[]> => {
-
-//     console.log("[fetchProducts] called at", new Date().toISOString());
-//     const res = await fetch(`${STORE_API}/products`, { next: { revalidate: 60 } });
-//     if (!res.ok) throw new Error("Failed to fetch products");
-//     return res.json();
-// };
 
 export const fetchProductById = async (id: number): Promise<Product> => {
     const res = await fetch(`${STORE_API}/products/${id}`, {
@@ -61,7 +42,9 @@ export const fetchProductByTitle = async (
     return res.json();
 };
 
-export const createProduct = async (payload: ProductPayload): Promise<Product> => {
+export const createProduct = async (
+    payload: ProductPayload,
+): Promise<Product> => {
     const res = await fetch(`${STORE_API}/products/`, {
         method: "POST",
         headers: {
@@ -69,10 +52,9 @@ export const createProduct = async (payload: ProductPayload): Promise<Product> =
         },
         body: JSON.stringify(payload),
     });
-
     if (!res.ok) throw new Error("Failed to create product");
     return res.json();
-}
+};
 
 export const updateProductById = async (
     id: number,
@@ -102,33 +84,10 @@ export const deleteProductById = async (id: number) => {
 
 // Categories
 
-// ISR - revalidate 1 minute
 export const fetchCategories = async (): Promise<Category[]> => {
     const res = await fetch(`${STORE_API}/categories`, { next: { revalidate: 60 } });
     if (!res.ok) throw new Error("Failed to fetch categories");
     return res.json();
-};
-
-export const fetchCategoryById = async (id: number): Promise<Category> => {
-    const { data } = await api.get(`/categories/${id}`);
-    return data;
-};
-
-// Auth
-
-export const loginUser = async (credential: any): Promise<LoginResponse> => {
-    const { data } = await api.post("/auth/login", credential);
-    return data;
-};
-
-export const fetchUserProfile = async (): Promise<UserProfile> => {
-    const token = storage.getToken();
-    const { data } = await api.get("/auth/profile", {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
-    return data;
 };
 
 // FAQ
