@@ -1,14 +1,10 @@
 import ProductCard from "@/components/ProductCard";
 import BackButton from "@/components/BackButton";
 import { fetchProductsByCategory } from "@/services/api";
+import { Props } from "@/types/param";
 
-interface Props {
-    params: Promise<{ id: string }>;
-}
-
-export default async function CategoryPage({ params }: Props) {
-    const { id } = await params;
-
+export default async function CategoryPage(props: Props) {
+    const { id } = await props.params;
     const products = await fetchProductsByCategory(Number(id));
 
     if (!products || products.length === 0) {
@@ -42,4 +38,3 @@ export default async function CategoryPage({ params }: Props) {
         </main>
     );
 }
-

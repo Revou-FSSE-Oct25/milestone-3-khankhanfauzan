@@ -15,8 +15,8 @@ export const storage = {
     },
 
     saveCart: (cart: CartItem[]) => {
+        if (typeof window === "undefined") return;
         localStorage.setItem(CART_KEY, JSON.stringify(cart));
-        window.dispatchEvent(new Event("cart-updated"));
     },
 
     updateQuantity: (productId: number, delta: number) => {
@@ -79,7 +79,6 @@ export const storage = {
     }) => {
         if (typeof window !== "undefined") {
             localStorage.setItem(USER_KEY, JSON.stringify(user));
-            window.dispatchEvent(new Event("auth-updated"));
         }
     },
 
@@ -97,7 +96,6 @@ export const storage = {
     removeUser: () => {
         if (typeof window !== "undefined") {
             localStorage.removeItem(USER_KEY);
-            window.dispatchEvent(new Event("auth-updated"));
         }
     },
 

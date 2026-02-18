@@ -34,8 +34,8 @@ function page() {
         (acc, item) => acc + item.price * item.quantity,
         0,
     );
-    const subTax = subTotal * tax;
-    const total = subTotal + subTax;
+    const subTax = Math.round(subTotal * tax * 100) / 100;
+    const total = Math.round((subTotal + subTax) * 100) / 100;
 
     if (cart.length === 0) {
         return (
@@ -113,4 +113,3 @@ function page() {
 }
 
 export default page;
-

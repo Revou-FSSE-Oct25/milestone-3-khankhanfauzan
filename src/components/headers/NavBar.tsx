@@ -27,7 +27,7 @@ type Props = {
     session: SessionPayload | null;
     user: User | null;
 };
-function NavBar({ session, user }: Props) {
+function NavBar({ user }: Props) {
     const router = useRouter();
 
     const { cart } = useCart();

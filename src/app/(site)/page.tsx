@@ -1,22 +1,13 @@
 "use client";
 
-import ProductCard from "@/components/ProductCard";
+import HomeCarousel from "@/components/HomeCarousel";
+import CategoryCarousel from "@/components/CategoryCarousel";
 import { Button } from "@/components/ui/button";
-import {
-    Carousel,
-    CarouselContent,
-    CarouselItem,
-    CarouselNext,
-    CarouselPrevious,
-} from "@/components/ui/carousel";
-import Autoplay from "embla-carousel-autoplay";
 import { fetchCategories, fetchProducts } from "@/services/api";
 import { Category, Product } from "@/types/product";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import CategoryCard from "@/components/CategoryCard";
 import Loading from "@/components/Loading";
-import { Input } from "@/components/ui/input";
 
 export default function Home() {
     const [products, setProducts] = useState<Product[]>([]);
@@ -54,71 +45,16 @@ export default function Home() {
                 </div>
 
                 <div className="w-full px-8">
-                    <Carousel
-                        opts={{
-                            align: "start",
-                            loop: true,
-                        }}
-                        plugins={[
-                            Autoplay({
-                                delay: 3000,
-                            }),
-                        ]}
-                        className="w-full"
-                    >
-                        <CarouselContent className="-ml-2 md:-ml-4">
-                            {products.map((product) => (
-                                <CarouselItem
-                                    key={product.id}
-                                    className="basis-1/2 md:basis-1/3 lg:basis-1/4"
-                                >
-                                    <ProductCard product={product} />
-                                </CarouselItem>
-                            ))}
-                        </CarouselContent>
-                        <div className="hidden md:block">
-                            <CarouselPrevious />
-                            <CarouselNext />
-                        </div>
-                    </Carousel>
+                    <HomeCarousel products={products} />
                 </div>
             </div>
             <div className="mt-8 w-full">
                 <div className="flex flex-row justify-between mb-2 w-full px-8">
                     <h1 className="text-2xl font-semibold ">Categories</h1>
-                    {/* <Link href="/">
-                        <Button variant="ghost">See All</Button>
-                    </Link> */}
                 </div>
 
                 <div className="w-full px-8">
-                    <Carousel
-                        opts={{
-                            align: "start",
-                            loop: true,
-                        }}
-                        plugins={[
-                            Autoplay({
-                                delay: 3000,
-                            }),
-                        ]}
-                        className="w-full"
-                    >
-                        <CarouselContent className="-ml-2 md:-ml-4">
-                            {categories.map((category) => (
-                                <CarouselItem
-                                    key={category.id}
-                                    className="basis-1/2 md:basis-1/3 lg:basis-1/4"
-                                >
-                                    <CategoryCard category={category} />
-                                </CarouselItem>
-                            ))}
-                        </CarouselContent>
-                        <div className="hidden md:block">
-                            <CarouselPrevious />
-                            <CarouselNext />
-                        </div>
-                    </Carousel>
+                    <CategoryCarousel categories={categories} />
                 </div>
             </div>
         </div>
