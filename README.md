@@ -47,8 +47,21 @@ Admin Update Product
 - Tailwind CSS 4
 - Radix UI and lucide‑react icons
 - Embla Carousel (autoplay) for carousels
-- Axios and Fetch API for data fetching
-- LocalStorage utilities for cart/auth persistence
+- Fetch API for data fetching
+- LocalStorage utilities for cart persistence
+
+## Testing
+
+- Jest configured via `next/jest` with `jest-environment-jsdom`
+- React Testing Library for component and hook tests
+- Unit tests for:
+    - Local storage utilities in `src/services/storage.ts`
+    - API layer in `src/services/api.ts`
+    - Cart state hook in `src/hooks/useCart.ts`
+    - Session and authorization helpers in `src/lib/dal.ts`
+    - Selected UI components and pages (`CartCard`, Home page, Login page)
+- Example test files can be found under `src/__tests__`
+- Coverage thresholds are enforced globally in `jest.config.js`
 
 ## Deployed Website
 
@@ -85,8 +98,19 @@ Admin Update Product
 │  └─ window.svg
 └─ src/
    ├─ __tests__/
+   │  ├─ app/
+   │  │  ├─ home.page.test.tsx
+   │  │  └─ login.page.test.tsx
+   │  ├─ components/
+   │  │  └─ CartCard.test.tsx
+   │  ├─ hooks/
+   │  │  └─ useCart.test.tsx
    │  ├─ lib/
-   │     └─ utils.test.ts
+   │  │  ├─ dal.test.ts
+   │  │  └─ utils.test.ts
+   │  ├─ services/
+   │  │  ├─ api.test.ts
+   │  │  └─ storage.test.ts
    ├─ actions/
    │  └─ auth.ts
    ├─ app/
@@ -162,13 +186,11 @@ Admin Update Product
    │  ├─ definitions.ts
    │  ├─ session.ts
    │  └─ utils.ts
-   ├─ services/
-   │  ├─ api.ts
-   │  └─ storage.ts
-   ├─ types/
-   │  ├─ auth.ts
-   │  ├─ faq.ts
-   │  ├─ param.ts
-   │  └─ product.ts
-   └─ proxy.ts
+  ├─ services/
+  │  ├─ api.ts
+  │  └─ storage.ts
+  ├─ types/
+  │  ├─ faq.ts
+  │  ├─ param.ts
+  │  └─ product.ts
 ```
