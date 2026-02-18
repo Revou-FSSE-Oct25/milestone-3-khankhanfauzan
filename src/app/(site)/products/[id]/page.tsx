@@ -5,14 +5,15 @@ import ProductGallery from "@/components/ProductGallery";
 import BackButton from "@/components/BackButton";
 import { notFound } from "next/navigation";
 import { Props } from "@/types/param";
+import { getSession } from "@/lib/session";
 
-async function page({ params }: Props) {
-    const getParams = await params;
-
-    const product = await fetchProductById(Number(getParams.id)).catch(
-        () => null,
-    );
+async function page(props: Props) {
+    const { id } = await props.params;
+    const product = await fetchProductById(Number(id)).catch(() => null);
     if (!product) return notFound();
+
+    const session = await getSession();
+    const isAuthenticated = !!session;
 
     return (
         <div className="min-h-screen py-12">
@@ -44,7 +45,10 @@ async function page({ params }: Props) {
                             </p>
                         </div>
                         <div className="mt-10">
-                            <AddToCartAction product={product} />
+                            <AddToCartAction
+                                product={product}
+                                isAuthenticated={isAuthenticated}
+                            />
                         </div>
                     </div>
                 </div>
@@ -54,4 +58,3 @@ async function page({ params }: Props) {
 }
 
 export default page;
-
