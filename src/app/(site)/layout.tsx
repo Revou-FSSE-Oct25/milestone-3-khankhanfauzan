@@ -1,4 +1,4 @@
-import Footer from "@/components/Footer";
+import Footer from "@/components/layout/Footer";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import AppSidebarWrapper from "@/components/sidebars/AppSidebarWrapper";
 import NavBarWrapper from "@/components/headers/NavBarWrapper";

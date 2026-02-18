@@ -3,7 +3,7 @@ import {
     Collapsible,
     CollapsibleContent,
     CollapsibleTrigger,
-} from "./ui/collapsible";
+} from "@/components/ui/collapsible";
 import { ChevronDownIcon } from "lucide-react";
 
 interface FAQCardProps {
@@ -31,3 +31,4 @@ function FAQCard({ post }: FAQCardProps) {
 }
 
 export default FAQCard;
+

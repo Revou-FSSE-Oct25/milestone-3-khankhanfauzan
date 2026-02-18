@@ -1,6 +1,6 @@
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
-import { Input } from "./ui/input";
+import { Input } from "@/components/ui/input";
 import {
     Table,
     TableBody,
@@ -8,11 +8,10 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from "./ui/table";
+} from "@/components/ui/table";
 import { fetchProducts } from "@/services/api";
-import SafeImage from "./SafeImage";
-
-import AppProductActions from "./AppProductActions";
+import SafeImage from "@/components/product/SafeImage";
+import AppProductActions from "@/components/product/AppProductActions";
 import Link from "next/link";
 
 async function AppDataTable() {
@@ -74,3 +73,4 @@ async function AppDataTable() {
 }
 
 export default AppDataTable;
+

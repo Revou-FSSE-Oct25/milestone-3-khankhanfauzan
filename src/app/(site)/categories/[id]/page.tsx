@@ -1,5 +1,5 @@
-import ProductCard from "@/components/ProductCard";
-import BackButton from "@/components/BackButton";
+import ProductCard from "@/components/product/ProductCard";
+import BackButton from "@/components/layout/BackButton";
 import { fetchProductsByCategory } from "@/services/api";
 import { Props } from "@/types/param";
 

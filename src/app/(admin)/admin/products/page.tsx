@@ -1,4 +1,4 @@
-import AppDataTable from "@/components/AppDataTable";
+import AppDataTable from "@/components/product/AppDataTable";
 
 function page() {
     return (

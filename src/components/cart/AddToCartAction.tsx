@@ -2,7 +2,7 @@
 
 import useCart from "@/hooks/useCart";
 import { Product } from "@/types/product";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
 interface Props {
@@ -70,3 +70,4 @@ function AddToCartAction({ product, isAuthenticated }: Props) {
 }
 
 export default AddToCartAction;
+

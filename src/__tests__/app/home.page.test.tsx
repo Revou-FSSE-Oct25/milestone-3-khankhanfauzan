@@ -4,7 +4,7 @@ import * as api from "@/services/api";
 
 jest.mock("@/services/api");
 
-jest.mock("@/components/HomeCarousel", () => ({
+jest.mock("@/components/product/HomeCarousel", () => ({
     __esModule: true,
     default: ({ products }: { products: any[] }) => (
         <div>
@@ -15,7 +15,7 @@ jest.mock("@/components/HomeCarousel", () => ({
     ),
 }));
 
-jest.mock("@/components/CategoryCarousel", () => ({
+jest.mock("@/components/product/CategoryCarousel", () => ({
     __esModule: true,
     default: ({ categories }: { categories: any[] }) => (
         <div>{categories.length} categories</div>

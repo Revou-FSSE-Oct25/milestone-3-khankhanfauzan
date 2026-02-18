@@ -1,4 +1,4 @@
-import FAQCard from "@/components/FAQCard";
+import FAQCard from "@/components/faq/FAQCard";
 import { fetchFaqs } from "@/services/api";
 import { FAQ } from "@/types/faq";
 
@@ -23,4 +23,3 @@ async function page() {
 }
 
 export default page;
-

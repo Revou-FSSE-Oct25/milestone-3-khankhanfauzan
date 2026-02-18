@@ -1,4 +1,4 @@
-import AppProductForm from "@/components/AppProductForm";
+import AppProductForm from "@/components/product/AppProductForm";
 import { fetchProductById } from "@/services/api";
 import { Props } from "@/types/param";
 

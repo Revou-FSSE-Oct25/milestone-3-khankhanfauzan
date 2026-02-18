@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import SafeImage from "./SafeImage";
+import SafeImage from "@/components/product/SafeImage";
 
 function ProductGallery({
     images,
@@ -46,3 +46,4 @@ function ProductGallery({
 }
 
 export default ProductGallery;
+

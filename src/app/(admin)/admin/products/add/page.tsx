@@ -1,4 +1,4 @@
-import AppAddProductForm from "@/components/AppAddProductForm";
+import AppAddProductForm from "@/components/product/AppAddProductForm";
 
 function page() {
     return (

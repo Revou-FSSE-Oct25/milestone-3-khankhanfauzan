@@ -1,4 +1,4 @@
-"use client"; // This is critical
+"use client";
 
 import Autoplay from "embla-carousel-autoplay";
 import {
@@ -8,11 +8,14 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from "@/components/ui/carousel";
-import ProductCard from "@/components/ProductCard";
-import { Product } from "@/types/product";
+import { Category } from "@/types/product";
+import CategoryCard from "@/components/product/CategoryCard";
 
-export default function HomeCarousel({ products }: { products: Product[] }) {
-    // The plugin is now initialized safely inside the Client Component
+export default function CategoryCarousel({
+    categories,
+}: {
+    categories: Category[];
+}) {
     const plugin = Autoplay({ delay: 3000 });
 
     return (
@@ -22,12 +25,12 @@ export default function HomeCarousel({ products }: { products: Product[] }) {
             className="w-full"
         >
             <CarouselContent className="-ml-2 md:-ml-4">
-                {products.map((product) => (
+                {categories.map((category) => (
                     <CarouselItem
-                        key={product.id}
+                        key={category.id}
                         className="basis-1/2 md:basis-1/3 lg:basis-1/4"
                     >
-                        <ProductCard product={product} />
+                        <CategoryCard category={category} />
                     </CarouselItem>
                 ))}
             </CarouselContent>
@@ -38,3 +41,4 @@ export default function HomeCarousel({ products }: { products: Product[] }) {
         </Carousel>
     );
 }
+

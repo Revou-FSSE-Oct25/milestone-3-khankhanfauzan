@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import CartCard from "@/components/CartCard";
+import CartCard from "@/components/cart/CartCard";
 import { CartItem } from "@/types/product";
 
 const item: CartItem = {

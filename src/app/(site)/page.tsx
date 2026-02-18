@@ -1,13 +1,13 @@
 "use client";
 
-import HomeCarousel from "@/components/HomeCarousel";
-import CategoryCarousel from "@/components/CategoryCarousel";
+import HomeCarousel from "@/components/product/HomeCarousel";
+import CategoryCarousel from "@/components/product/CategoryCarousel";
 import { Button } from "@/components/ui/button";
 import { fetchCategories, fetchProducts } from "@/services/api";
 import { Category, Product } from "@/types/product";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Loading from "@/components/Loading";
+import Loading from "@/components/common/Loading";
 
 export default function Home() {
     const [products, setProducts] = useState<Product[]>([]);

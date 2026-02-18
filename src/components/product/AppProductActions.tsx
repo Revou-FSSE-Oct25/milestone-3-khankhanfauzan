@@ -6,8 +6,8 @@ import {
     DropdownMenuItem,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
-import { Button } from "./ui/button";
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
 import { MoreVerticalIcon } from "lucide-react";
 import {
     AlertDialog,
@@ -19,7 +19,7 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
     AlertDialogTrigger,
-} from "./ui/alert-dialog";
+} from "@/components/ui/alert-dialog";
 import { useRouter } from "next/navigation";
 import { deleteProductById } from "@/services/api";
 
@@ -27,7 +27,6 @@ function AppProductActions({ id }: { id: number }) {
     const router = useRouter();
 
     const handleEdit = () => {
-        console.log("edit product", id);
         router.push(`/admin/products/${id}`);
     };
 
@@ -63,9 +62,7 @@ function AppProductActions({ id }: { id: number }) {
 
             <AlertDialogContent>
                 <AlertDialogHeader>
-                    <AlertDialogTitle>
-                        Are you absolutely sure?
-                    </AlertDialogTitle>
+                    <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                     <AlertDialogDescription>
                         This action cannot be undone. This will permanently
                         delete your item.
@@ -86,3 +83,4 @@ function AppProductActions({ id }: { id: number }) {
 }
 
 export default AppProductActions;
+

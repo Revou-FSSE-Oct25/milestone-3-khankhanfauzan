@@ -4,10 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Category, Product } from "@/types/product";
+import { Category } from "@/types/product";
 import { useForm } from "react-hook-form";
-import SafeImage from "./SafeImage";
-import { fetchCategories, updateProductById } from "@/services/api";
+import SafeImage from "@/components/product/SafeImage";
+import {
+    createProduct,
+    fetchCategories,
+} from "@/services/api";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import {
@@ -16,20 +19,20 @@ import {
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "./ui/select";
+} from "@/components/ui/select";
 
 type ProductFormValues = {
     title: string;
     description: string;
-    categoryId: number;
     price: number;
+    categoryId: number;
 };
 
-function AppProductForm({ product }: { product: Product }) {
+function AppAddProductForm() {
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
     const [categories, setCategories] = useState<Category[]>([]);
-    const [imageInputs, setImageInputs] = useState<string[]>(product.images);
+    const [imageInputs, setImageInputs] = useState<string[]>([]);
     const [imageError, setImageError] = useState<string | null>(null);
 
     useEffect(() => {
@@ -44,10 +47,9 @@ function AppProductForm({ product }: { product: Product }) {
         watch,
     } = useForm<ProductFormValues>({
         defaultValues: {
-            title: product.title,
-            description: product.description,
-            price: product.price,
-            categoryId: product.category.id,
+            title: "",
+            description: "",
+            price: undefined,
         },
     });
 
@@ -68,14 +70,14 @@ function AppProductForm({ product }: { product: Product }) {
         const payload = {
             title: data.title,
             price: data.price,
-            categoryId: data.categoryId,
             description: data.description,
+            categoryId: data.categoryId,
             images: cleanedImages,
         };
 
         try {
             setIsLoading(true);
-            await updateProductById(product.id, payload);
+            await createProduct(payload);
             router.push("/admin/products");
         } catch (error) {
             setIsLoading(false);
@@ -195,7 +197,6 @@ function AppProductForm({ product }: { product: Product }) {
                                     {trimmed && (
                                         <SafeImage
                                             src={trimmed}
-                                            alt={product.title}
                                             width={64}
                                             height={64}
                                             className="rounded-sm border border-neutral-800 object-cover aspect-square"
@@ -217,32 +218,26 @@ function AppProductForm({ product }: { product: Product }) {
                                         variant="outline"
                                         size="icon"
                                         onClick={() => {
-                                            if (imageInputs.length === 1) {
-                                                return;
-                                            }
                                             const next = [...imageInputs];
                                             next.splice(index, 1);
                                             setImageInputs(next);
                                         }}
-                                        disabled={imageInputs.length === 1}
                                     >
-                                        ×
+                                        Remove
                                     </Button>
                                 </div>
                             );
                         })}
-
-                        <Button
-                            type="button"
-                            variant="outline"
-                            size="sm"
-                            onClick={() =>
-                                setImageInputs((prev) => [...prev, ""])
-                            }
-                        >
-                            + Add Image
-                        </Button>
                     </div>
+
+                    <Button
+                        type="button"
+                        variant="outline"
+                        className="mt-2"
+                        onClick={() => setImageInputs([...imageInputs, ""])}
+                    >
+                        Add Image URL
+                    </Button>
 
                     {imageError && (
                         <div className="text-sm text-red-500 mt-1">
@@ -250,12 +245,14 @@ function AppProductForm({ product }: { product: Product }) {
                         </div>
                     )}
                 </Field>
-                <Button type="submit">
-                    {isLoading ? "Submiting..." : "Submit"}
+
+                <Button type="submit" disabled={isLoading}>
+                    {isLoading ? "Creating..." : "Create Product"}
                 </Button>
             </FieldGroup>
         </form>
     );
 }
 
-export default AppProductForm;
+export default AppAddProductForm;
+

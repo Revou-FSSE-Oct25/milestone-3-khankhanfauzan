@@ -1,6 +1,6 @@
 "use client";
 
-import CartCard from "@/components/CartCard";
+import CartCard from "@/components/cart/CartCard";
 import { useState } from "react";
 import useCart from "../../../hooks/useCart";
 import Link from "next/link";

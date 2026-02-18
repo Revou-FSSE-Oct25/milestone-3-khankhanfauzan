@@ -27,8 +27,10 @@ function SafeImage({
             }}
             width={width}
             height={height}
+            {...props}
         />
     );
 }
 
 export default SafeImage;
+

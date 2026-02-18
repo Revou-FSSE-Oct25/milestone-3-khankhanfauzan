@@ -1,8 +1,8 @@
 "use client";
 
-import CategoryCard from "@/components/CategoryCard";
-import Loading from "@/components/Loading";
-import ProductCard from "@/components/ProductCard";
+import CategoryCard from "@/components/product/CategoryCard";
+import Loading from "@/components/common/Loading";
+import ProductCard from "@/components/product/ProductCard";
 import { fetchCategories, fetchProducts } from "@/services/api";
 import { Category, Product } from "@/types/product";
 import { useState, useEffect } from "react";
@@ -37,4 +37,3 @@ function page() {
 }
 
 export default page;
-

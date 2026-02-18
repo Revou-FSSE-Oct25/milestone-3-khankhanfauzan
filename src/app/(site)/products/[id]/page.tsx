@@ -1,8 +1,8 @@
 import { Badge } from "@/components/ui/badge";
 import { fetchProductById } from "@/services/api";
-import AddToCartAction from "@/components/AddToCartAction";
-import ProductGallery from "@/components/ProductGallery";
-import BackButton from "@/components/BackButton";
+import AddToCartAction from "@/components/cart/AddToCartAction";
+import ProductGallery from "@/components/product/ProductGallery";
+import BackButton from "@/components/layout/BackButton";
 import { notFound } from "next/navigation";
 import { Props } from "@/types/param";
 import { getSession } from "@/lib/session";

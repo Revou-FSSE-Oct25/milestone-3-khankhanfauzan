@@ -1,6 +1,6 @@
 import { Category } from "@/types/product";
-import SafeImage from "./SafeImage";
-import { Badge } from "./ui/badge";
+import SafeImage from "@/components/product/SafeImage";
+import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 
 interface CategoryCardProps {
@@ -29,3 +29,4 @@ function CategoryCard({ category }: CategoryCardProps) {
 }
 
 export default CategoryCard;
+

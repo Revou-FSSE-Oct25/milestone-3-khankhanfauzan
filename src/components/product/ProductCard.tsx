@@ -1,8 +1,8 @@
 import { Product } from "@/types/product";
 import Link from "next/link";
-import SafeImage from "./SafeImage";
-import { Button } from "./ui/button";
-import { Badge } from "./ui/badge";
+import SafeImage from "@/components/product/SafeImage";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 interface ProductCardProps {
     product: Product;
@@ -38,3 +38,4 @@ function ProductCard({ product }: ProductCardProps) {
 }
 
 export default ProductCard;
+

@@ -1,9 +1,9 @@
 "use client";
 
 import { CartItem } from "@/types/product";
-import SafeImage from "./SafeImage";
+import SafeImage from "@/components/product/SafeImage";
 import { Trash } from "lucide-react";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 
 interface CartCardProps {
     item: CartItem;
@@ -29,7 +29,6 @@ function CartCard({ item, onUpdateQty, onRemove }: CartCardProps) {
                         </h3>
                         <h3 className="text-2xl font-semibold">{`$${item.price}`}</h3>
                     </div>
-                    {/* Quantity Button */}
                     <div className="flex items-center gap-4 p-2 rounded-xl justify-end">
                         <Trash
                             color="red"
