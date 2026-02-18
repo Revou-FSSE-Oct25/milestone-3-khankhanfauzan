@@ -3,23 +3,44 @@
 import useCart from "@/hooks/useCart";
 import { Product } from "@/types/product";
 import { Button } from "./ui/button";
+import { useRouter } from "next/navigation";
 
 interface Props {
     product: Product;
+    isAuthenticated: boolean;
 }
 
-function AddToCartAction({ product }: Props) {
+function AddToCartAction({ product, isAuthenticated }: Props) {
+    const router = useRouter();
     const { cart, add, updateQty } = useCart();
     const cartItem = cart.find((item) => item.id === product.id);
 
     if (!cartItem) {
-        return <Button onClick={() => add(product)}>Add to Cart</Button>;
+        return (
+            <Button
+                onClick={() => {
+                    if (!isAuthenticated) {
+                        router.push("/login");
+                        return;
+                    }
+                    add(product);
+                }}
+            >
+                Add to Cart
+            </Button>
+        );
     }
 
     return (
         <div className="flex items-center gap-4 p-2 rounded-xl">
             <Button
-                onClick={() => updateQty(product.id, -1)}
+                onClick={() => {
+                    if (!isAuthenticated) {
+                        router.push("/login");
+                        return;
+                    }
+                    updateQty(product.id, -1);
+                }}
                 className="w-12 h-12 flex items-center justify-center text-xl"
             >
                 -
@@ -33,7 +54,13 @@ function AddToCartAction({ product }: Props) {
             />
 
             <Button
-                onClick={() => updateQty(product.id, 1)}
+                onClick={() => {
+                    if (!isAuthenticated) {
+                        router.push("/login");
+                        return;
+                    }
+                    updateQty(product.id, 1);
+                }}
                 className="w-12 h-12 flex items-center justify-center text-xl"
             >
                 +
