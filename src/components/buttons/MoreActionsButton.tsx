@@ -21,18 +21,27 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { useRouter } from "next/navigation";
-import { deleteProductById } from "@/services/api";
 
-function AppProductActions({ id }: { id: number }) {
+interface ResourceMoreActionsProps {
+    id: number;
+    route: string;
+    onDelete: (id: number) => Promise<unknown>;
+}
+
+function MoreActionsButton({
+    id,
+    route: editHref,
+    onDelete,
+}: ResourceMoreActionsProps) {
     const router = useRouter();
 
     const handleEdit = () => {
-        router.push(`/admin/products/${id}`);
+        router.push(`${editHref}/${id}`);
     };
 
     const handleDelete = async () => {
         try {
-            await deleteProductById(id);
+            await onDelete(id);
             router.refresh();
         } catch (error) {
             console.error(error);
@@ -62,7 +71,9 @@ function AppProductActions({ id }: { id: number }) {
 
             <AlertDialogContent>
                 <AlertDialogHeader>
-                    <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                    <AlertDialogTitle>
+                        Are you absolutely sure?
+                    </AlertDialogTitle>
                     <AlertDialogDescription>
                         This action cannot be undone. This will permanently
                         delete your item.
@@ -82,5 +93,4 @@ function AppProductActions({ id }: { id: number }) {
     );
 }
 
-export default AppProductActions;
-
+export default MoreActionsButton;

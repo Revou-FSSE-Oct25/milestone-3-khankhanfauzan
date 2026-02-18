@@ -1,9 +1,9 @@
-import React from "react";
+import UserDataTable from "@/components/tables/UserDataTable";
 
 function page() {
     return (
-        <div>
-            <h1>Users</h1>
+        <div className="p-4">
+            <UserDataTable />
         </div>
     );
 }

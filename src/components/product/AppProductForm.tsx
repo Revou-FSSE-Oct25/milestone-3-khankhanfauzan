@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Category, Product } from "@/types/product";
 import { useForm } from "react-hook-form";
-import SafeImage from "@/components/product/SafeImage";
+import SafeImage from "@/components/common/SafeImage";
 import { fetchCategories, updateProductById } from "@/services/api";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -254,4 +254,3 @@ function AppProductForm({ product }: { product: Product }) {
 }
 
 export default AppProductForm;
-

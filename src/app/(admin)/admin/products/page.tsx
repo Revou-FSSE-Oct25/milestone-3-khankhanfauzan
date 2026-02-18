@@ -1,9 +1,9 @@
-import AppDataTable from "@/components/product/AppDataTable";
+import ProductDataTable from "@/components/tables/ProductDataTable";
 
 function page() {
     return (
-        <div className="max-w-7xl p-4">
-            <AppDataTable />
+        <div className="p-4">
+            <ProductDataTable />
         </div>
     );
 }

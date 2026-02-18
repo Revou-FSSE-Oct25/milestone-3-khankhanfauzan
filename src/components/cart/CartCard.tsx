@@ -1,7 +1,7 @@
 "use client";
 
 import { CartItem } from "@/types/product";
-import SafeImage from "@/components/product/SafeImage";
+import SafeImage from "@/components/common/SafeImage";
 import { Trash } from "lucide-react";
 import { Button } from "@/components/ui/button";
 

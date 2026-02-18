@@ -1,3 +1,4 @@
+import { User } from "@/lib/definitions";
 import { Category, Product, ProductPayload } from "../types/product";
 
 const STORE_API = "https://api.escuelajs.co/api/v1";
@@ -87,6 +88,14 @@ export const deleteProductById = async (id: number) => {
 export const fetchCategories = async (): Promise<Category[]> => {
     const res = await fetch(`${STORE_API}/categories`, { next: { revalidate: 60 } });
     if (!res.ok) throw new Error("Failed to fetch categories");
+    return res.json();
+};
+
+// Users
+
+export const fetchUsers = async (): Promise<User[]> => {
+    const res = await fetch(`${STORE_API}/users`, { cache: "no-store" });
+    if (!res.ok) throw new Error("Failed to fetch users");
     return res.json();
 };
 
