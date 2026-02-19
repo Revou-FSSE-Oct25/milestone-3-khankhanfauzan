@@ -1,47 +1,37 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import HomePage from "@/app/(site)/page";
-import * as api from "@/services/api";
 
-jest.mock("@/services/api");
-
-jest.mock("@/components/product/HomeCarousel", () => ({
+jest.mock("@/components/ui/carousel", () => ({
     __esModule: true,
-    default: ({ products }: { products: any[] }) => (
-        <div>
-            {products.map((p) => (
-                <div key={p.id}>{p.title}</div>
-            ))}
-        </div>
+    Carousel: ({ children }: { children: React.ReactNode }) => (
+        <div>{children}</div>
     ),
+    CarouselContent: ({ children }: { children: React.ReactNode }) => (
+        <div>{children}</div>
+    ),
+    CarouselItem: ({ children }: { children: React.ReactNode }) => (
+        <div>{children}</div>
+    ),
+    CarouselNext: () => null,
+    CarouselPrevious: () => null,
 }));
 
-jest.mock("@/components/product/CategoryCarousel", () => ({
-    __esModule: true,
-    default: ({ categories }: { categories: any[] }) => (
-        <div>{categories.length} categories</div>
-    ),
+jest.mock("@/services/api", () => ({
+    fetchCategories: jest.fn().mockResolvedValue([
+        {
+            id: 1,
+            name: "Category 1",
+            image: "/category-1.png",
+        },
+    ]),
 }));
-
-const mockedApi = api as jest.Mocked<typeof api>;
 
 describe("HomePage", () => {
-    it("renders products from api", async () => {
-        mockedApi.fetchCategories.mockResolvedValueOnce([]);
-        mockedApi.fetchProducts.mockResolvedValueOnce([
-            {
-                id: 1,
-                title: "Product 1",
-                price: 10,
-                description: "Desc",
-                images: [],
-                category: { id: 1, name: "Cat", image: "img" },
-            } as any,
-        ]);
+    it("renders marketing hero", async () => {
+        const page = await HomePage();
 
-        render(<HomePage />);
+        render(page);
 
-        await waitFor(() => {
-            expect(screen.getByText("Product 1")).toBeTruthy();
-        });
+        expect(screen.getByText(/Fresh Arrivals Are Here!/i)).toBeTruthy();
     });
 });

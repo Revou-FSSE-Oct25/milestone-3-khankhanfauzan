@@ -29,7 +29,9 @@ function ProductCard({ product }: ProductCardProps) {
                     <h3 className="text-xl font-semibold mb-2 truncate">
                         {product.title}
                     </h3>
-                    <h3 className="text-2xl font-semibold mb-2">{`$${product.price}`}</h3>
+                    <h3 className="text-2xl font-semibold mb-2">
+                        {`$${product.price.toLocaleString("en-US")}`}
+                    </h3>
                     <p className="truncate">{product.description}</p>
                 </div>
             </div>
