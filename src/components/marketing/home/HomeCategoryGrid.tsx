@@ -12,7 +12,7 @@ function HomeCategoryGrid({ categories }: HomeCategoryGridProps) {
 
     return (
         <div className="bg-card p-4">
-            <div className="mx-auto flex max-w-7xl flex-wrap justify-center gap-12">
+            <div className="mx-auto flex max-w-7xl flex-wrap justify-center text-center gap-12">
                 {visibleCategories.map((category) => (
                     <Link
                         key={category.id}
@@ -35,7 +35,7 @@ function HomeCategoryGrid({ categories }: HomeCategoryGridProps) {
 
                 <Link
                     href="/categories"
-                    className="flex w-24 flex-col items-center gap-2"
+                    className="flex w-24 flex-col items-center gap-2 text-center"
                 >
                     <div className="flex h-20 w-20 items-center justify-center rounded-full bg-muted text-xs text-foreground">
                         <LayoutGridIcon />

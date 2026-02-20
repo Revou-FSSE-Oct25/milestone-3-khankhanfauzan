@@ -43,6 +43,13 @@ export const fetchProductByTitle = async (
     return res.json();
 };
 
+export const fetchProductPagination = async (offset: number, limit: number): Promise<Product[]> => {
+    const res = await fetch(`${STORE_API}/products?offset=${offset}&limit=${limit}`);
+
+    if (!res.ok) throw new Error("Failed to fetch products");
+    return res.json();
+}
+
 export const createProduct = async (
     payload: ProductPayload,
 ): Promise<Product> => {

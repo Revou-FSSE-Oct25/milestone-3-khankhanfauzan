@@ -24,6 +24,20 @@ jest.mock("@/services/api", () => ({
             image: "/category-1.png",
         },
     ]),
+    fetchProductPagination: jest.fn().mockResolvedValue(
+        Array.from({ length: 12 }).map((_, index) => ({
+            id: index + 1,
+            title: `Product ${index + 1}`,
+            price: 100 + index,
+            description: "Mock product description",
+            images: ["/product.png"],
+            category: {
+                id: 1,
+                name: "Category 1",
+                image: "/category-1.png",
+            },
+        })),
+    ),
 }));
 
 describe("HomePage", () => {
