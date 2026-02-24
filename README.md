@@ -40,6 +40,32 @@ Admin Update Product
 - FAQ page statically generated (SSG) with cached fetch
 - File‑based routing and client‑side navigation via Next.js Link
 
+### Admin Features
+
+- Admin dashboard layout with sidebar and header
+- Admin products CRUD:
+    - Products table with edit/delete actions
+    - Add Product form using Platzi products API (`POST /products`)
+    - Edit Product form using Platzi products API (`PUT /products/{id}`)
+    - Delete Product action using Platzi products API (`DELETE /products/{id}`)
+- Admin categories CRUD:
+    - Categories table with edit/delete actions
+    - Add Category form backed by Platzi categories API (`POST /categories`)
+    - Edit Category form backed by Platzi categories API (`PUT /categories/{id}`)
+    - Delete Category action using Platzi categories API (`DELETE /categories/{id}`)
+- Admin users CRUD:
+    - Users table listing remote users from Platzi users API (`GET /users`)
+    - Add User form with:
+        - Name, email, password, avatar, and role (customer/admin)
+        - Email format validation via shared `isValidEmail` utility
+        - Email availability check via `POST /users/is-available`
+        - Creation backed by Platzi users API (`POST /users`)
+    - Edit User form with:
+        - Name, email, avatar preview, and role (customer/admin)
+        - Email validation and availability check before update
+        - Update backed by Platzi users API (`PUT /users/{id}`)
+    - Delete User action using Platzi users API (`DELETE /users/{id}`)
+
 ## Tech Stack
 
 - Next.js 16 (App Router, server components, SSR/SSG)
@@ -82,15 +108,7 @@ Admin Update Product
 ├─ postcss.config.mjs
 ├─ tsconfig.json
 ├─ public/
-│  ├─ screenshots/
-│  │  ├─ home.png
-│  │  ├─ products.png
-│  │  ├─ product-detail.png
-│  │  ├─ cart.png
-│  │  ├─ faq.png
-│  │  ├─ admin-products.png
-│  │  ├─ admin-add-product.png
-│  │  └─ admin-update-product.png
+│  ├─ screenshots/...
 │  ├─ file.svg
 │  ├─ globe.svg
 │  ├─ next.svg
@@ -117,32 +135,29 @@ Admin Update Product
    │  ├─ (admin)/
    │  │  └─ admin/
    │  │     ├─ categories/
+   │  │     │  ├─ [id]/page.tsx
+   │  │     │  ├─ add/page.tsx
    │  │     │  └─ page.tsx
-   │  │     ├─ dashboard/
-   │  │     │  └─ page.tsx
+   │  │     ├─ dashboard/page.tsx
    │  │     ├─ products/
-   │  │     │  ├─ [id]/
-   │  │     │  │  └─ page.tsx
-   │  │     │  ├─ add/
-   │  │     │  │  └─ page.tsx
+   │  │     │  ├─ [id]/page.tsx
+   │  │     │  ├─ add/page.tsx
    │  │     │  └─ page.tsx
    │  │     ├─ users/
+   │  │     │  ├─ [id]/page.tsx
+   │  │     │  ├─ add/page.tsx
    │  │     │  └─ page.tsx
    │  │     ├─ layout.tsx
    │  │     └─ page.tsx
    │  ├─ (site)/
-   │  │  ├─ cart/
-   │  │  │  └─ page.tsx
+   │  │  ├─ cart/page.tsx
    │  │  ├─ categories/
-   │  │  │  └─ [id]/
-   │  │  │     └─ page.tsx
-   │  │  ├─ faq/
+   │  │  │  ├─ [id]/page.tsx
    │  │  │  └─ page.tsx
-   │  │  ├─ login/
-   │  │  │  └─ page.tsx
+   │  │  ├─ faq/page.tsx
+   │  │  ├─ login/page.tsx
    │  │  ├─ products/
-   │  │  │  ├─ [id]/
-   │  │  │  │  └─ page.tsx
+   │  │  │  ├─ [id]/page.tsx
    │  │  │  └─ page.tsx
    │  │  ├─ layout.tsx
    │  │  └─ page.tsx
@@ -151,33 +166,61 @@ Admin Update Product
    │  ├─ layout.tsx
    │  └─ page.tsx
    ├─ components/
+   │  ├─ buttons/
+   │  │  └─ MoreActionsButton.tsx
+   │  ├─ cart/
+   │  │  ├─ AddToCartAction.tsx
+   │  │  └─ CartCard.tsx
+   │  ├─ common/
+   │  │  ├─ Loading.tsx
+   │  │  └─ SafeImage.tsx
+   │  ├─ faq/
+   │  │  └─ FAQCard.tsx
+   │  ├─ forms/
+   │  │  ├─ category/
+   │  │  │  ├─ AddCategoryForm.tsx
+   │  │  │  └─ EditCategoryForm.tsx
+   │  │  ├─ product/
+   │  │  │  ├─ AddProductForm.tsx
+   │  │  │  └─ EditProductForm.tsx
+   │  │  └─ user/
+   │  │     ├─ AddUserForm.tsx
+   │  │     └─ EditUserForm.tsx
    │  ├─ headers/
    │  │  ├─ AdminHeader.tsx
    │  │  ├─ NavBar.tsx
    │  │  └─ NavBarWrapper.tsx
+   │  ├─ layout/
+   │  │  ├─ BackButton.tsx
+   │  │  ├─ Container.tsx
+   │  │  └─ Footer.tsx
+   │  ├─ marketing/
+   │  │  └─ home/
+   │  │     ├─ HomeBestSellingStoreGrid.tsx
+   │  │     ├─ HomeCategoryGrid.tsx
+   │  │     ├─ HomeHero.tsx
+   │  │     ├─ HomeTagline.tsx
+   │  │     └─ HomeTodaysProductGrid.tsx
+   │  ├─ product/
+   │  │  ├─ CategoryCard.tsx
+   │  │  ├─ CategoryCarousel.tsx
+   │  │  ├─ HomeCarousel.tsx
+   │  │  ├─ ProductCard.tsx
+   │  │  └─ ProductGallery.tsx
    │  ├─ sidebars/
    │  │  ├─ AdminSidebar.tsx
    │  │  ├─ AppSideBarUser.tsx
    │  │  ├─ AppSidebar.tsx
    │  │  ├─ AppSidebarGroup.tsx
    │  │  └─ AppSidebarWrapper.tsx
-   │  ├─ ui/...
-   │  ├─ AddToCartAction.tsx
-   │  ├─ AppAddProductForm.tsx
-   │  ├─ AppDataTable.tsx
-   │  ├─ AppProductActions.tsx
-   │  ├─ AppProductForm.tsx
-   │  ├─ BackButton.tsx
-   │  ├─ CartCard.tsx
-   │  ├─ CategoryCard.tsx
-   │  ├─ CategoryCarousel.tsx
-   │  ├─ FAQCard.tsx
-   │  ├─ Footer.tsx
-   │  ├─ HomeCarousel.tsx
-   │  ├─ Loading.tsx
-   │  ├─ ProductCard.tsx
-   │  ├─ ProductGallery.tsx
-   │  └─ SafeImage.tsx
+   │  ├─ tables/
+   │  │  ├─ CategoryDataTable.tsx
+   │  │  ├─ ProductDataTable.tsx
+   │  │  └─ UserDataTable.tsx
+   │  └─ ui/...
+   ├─ data/
+   │  ├─ home-best-selling-store.ts
+   │  └─ home-carousel.ts
    ├─ hooks/
    │  ├─ use-mobile.ts
    │  └─ useCart.ts
@@ -186,11 +229,12 @@ Admin Update Product
    │  ├─ definitions.ts
    │  ├─ session.ts
    │  └─ utils.ts
-  ├─ services/
-  │  ├─ api.ts
-  │  └─ storage.ts
-  ├─ types/
-  │  ├─ faq.ts
-  │  ├─ param.ts
-  │  └─ product.ts
+   ├─ services/
+   │  ├─ api.ts
+   │  └─ storage.ts
+   ├─ types/
+   │  ├─ faq.ts
+   │  ├─ param.ts
+   │  └─ product.ts
+   └─ proxy.ts
 ```

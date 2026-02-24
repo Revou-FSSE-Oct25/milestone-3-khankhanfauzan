@@ -21,27 +21,36 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { useRouter } from "next/navigation";
+import {
+    deleteCategoryById,
+    deleteProductById,
+    deleteUserById,
+} from "@/services/api";
 
 interface ResourceMoreActionsProps {
     id: number;
     route: string;
-    onDelete: (id: number) => Promise<unknown>;
 }
 
-function MoreActionsButton({
-    id,
-    route: editHref,
-    onDelete,
-}: ResourceMoreActionsProps) {
+function MoreActionsButton({ id, route }: ResourceMoreActionsProps) {
     const router = useRouter();
 
     const handleEdit = () => {
-        router.push(`${editHref}/${id}`);
+        router.push(`${route}/${id}`);
     };
 
     const handleDelete = async () => {
         try {
-            await onDelete(id);
+            if (route === "/admin/products") {
+                await deleteProductById(id);
+            } else if (route === "/admin/categories") {
+                await deleteCategoryById(id);
+            } else if (route === "/admin/users") {
+                await deleteUserById(id);
+            } else {
+                throw new Error("Unsupported route for deletion");
+            }
+
             router.refresh();
         } catch (error) {
             console.error(error);
