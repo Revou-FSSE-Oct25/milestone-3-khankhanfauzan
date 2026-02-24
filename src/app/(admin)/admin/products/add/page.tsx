@@ -1,8 +1,8 @@
-import AppAddProductForm from "@/components/product/AppAddProductForm";
+import AppAddProductForm from "@/components/forms/product/AddProductForm";
 
 function page() {
     return (
-        <div className="max-w-7xl p-4">
+        <div className="p-4">
             <AppAddProductForm />
         </div>
     );

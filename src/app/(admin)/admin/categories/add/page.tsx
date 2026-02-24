@@ -1,9 +1,9 @@
-import React from "react";
+import AddCategoryForm from "@/components/forms/category/AddCategoryForm";
 
 function page() {
     return (
-        <div>
-            <h1>Add Category</h1>
+        <div className="p-4">
+            <AddCategoryForm />
         </div>
     );
 }

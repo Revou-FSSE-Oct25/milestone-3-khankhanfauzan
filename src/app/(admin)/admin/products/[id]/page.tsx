@@ -1,4 +1,4 @@
-import AppProductForm from "@/components/product/AppProductForm";
+import AppProductForm from "@/components/forms/product/EditProductForm";
 import { fetchProductById } from "@/services/api";
 import { Props } from "@/types/param";
 
@@ -7,7 +7,7 @@ async function page(props: Props) {
     const product = await fetchProductById(Number(id));
 
     return (
-        <div className="max-w-7xl p-4">
+        <div className="p-4">
             <AppProductForm product={product} />
         </div>
     );
