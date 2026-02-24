@@ -9,7 +9,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { fetchProducts, deleteProductById } from "@/services/api";
+import { fetchProducts } from "@/services/api";
 import SafeImage from "@/components/common/SafeImage";
 import MoreActionsButton from "@/components/buttons/MoreActionsButton";
 import Link from "next/link";
@@ -72,7 +72,6 @@ async function ProductDataTable() {
                                     <MoreActionsButton
                                         id={product.id}
                                         route="/admin/products"
-                                        onDelete={deleteProductById}
                                     />
                                 </TableCell>
                             </TableRow>

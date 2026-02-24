@@ -9,7 +9,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { fetchCategories, deleteProductById } from "@/services/api";
+import { fetchCategories } from "@/services/api";
 import SafeImage from "@/components/common/SafeImage";
 import MoreActionsButton from "@/components/buttons/MoreActionsButton";
 import Link from "next/link";
@@ -66,7 +66,6 @@ async function CategoryDataTable() {
                                     <MoreActionsButton
                                         id={category.id}
                                         route="/admin/categories"
-                                        onDelete={deleteProductById}
                                     />
                                 </TableCell>
                             </TableRow>

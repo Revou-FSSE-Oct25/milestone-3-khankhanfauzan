@@ -9,7 +9,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { deleteProductById, fetchUsers } from "@/services/api";
+import { fetchUsers } from "@/services/api";
 import SafeImage from "@/components/common/SafeImage";
 import MoreActionsButton from "@/components/buttons/MoreActionsButton";
 import Link from "next/link";
@@ -72,7 +72,6 @@ async function UserDataTable() {
                                     <MoreActionsButton
                                         id={user.id}
                                         route="/admin/users"
-                                        onDelete={deleteProductById}
                                     />
                                 </TableCell>
                             </TableRow>
